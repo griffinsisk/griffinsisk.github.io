@@ -8,7 +8,7 @@ export function validateMessages(messages) {
     return { ok: false, error: "Send a messages array with at least one message." };
   }
   if (messages.length > MAX_TURNS) {
-    return { ok: false, error: `Conversation is too long (max ${MAX_TURNS} messages) — refresh to start over.` };
+    return { ok: false, error: `Conversation is too long (max ${MAX_TURNS} messages). Refresh to start over.` };
   }
   let total = 0;
   for (let i = 0; i < messages.length; i++) {
@@ -30,7 +30,7 @@ export function validateMessages(messages) {
     return { ok: false, error: `That question is too long (max ${MAX_MESSAGE_CHARS} characters).` };
   }
   if (total > MAX_TOTAL_CHARS) {
-    return { ok: false, error: "This conversation has gotten too large — refresh to start over." };
+    return { ok: false, error: "This conversation has gotten too large. Refresh to start over." };
   }
   return { ok: true };
 }

@@ -19,5 +19,5 @@ record of doing it under real-world pressure: through the books he reads, the
 projects he builds (see the project sections), and daily work with customers
 trying to understand AI costs across many providers, he has repeatedly gone
 from "new domain" to "applying it with customers" in short order. The pattern
-across his projects is the same — learn by shipping, measure honestly, and
+across his projects is the same: learn by shipping, measure honestly, and
 keep what works.

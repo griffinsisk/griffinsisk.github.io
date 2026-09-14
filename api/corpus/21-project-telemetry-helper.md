@@ -2,7 +2,7 @@
 
 An internal CloudZero knowledge system that keeps a Claude Team Project
 accurate enough for Sales Engineers to use on live customer calls, covering
-the rapidly evolving AI Telemetry product — knowledge spread across 9+ code
+the rapidly evolving AI Telemetry product, with knowledge spread across 9+ code
 repositories, Confluence, Jira, and a 104K-line Swift/Go codebase that ships
 weekly.
 
@@ -14,15 +14,15 @@ as *customer-ready*.
 
 **Architecture.** Three layers:
 
-1. *Sync pipeline* — Python + the Google Drive API, scheduled unattended via
+1. *Sync pipeline*: Python + the Google Drive API, scheduled unattended via
    macOS launchd: fast-moving docs sync twice daily, seven stable repos sync
    weekly, with per-repo state tracking (commit SHAs, file counts, orphan
    cleanup) and an append-only operations log.
-2. *AI summarization* — a scheduled Claude agent re-reads the 104K-line
+2. *AI summarization*: a scheduled Claude agent re-reads the 104K-line
    Swift/Go codebase weekly and distills it into a focused technical
    reference, with change detection (skip if the code didn't change) and
    search-before-upload idempotency so stale copies never accumulate.
-3. *Live tool calls* — facts that change faster than any sync schedule
+3. *Live tool calls*: facts that change faster than any sync schedule
    (ticket status, sprint progress, daily engineering updates) are never
    baked into static knowledge; the assistant queries Jira and Confluence at
    question time via MCP connectors.
@@ -30,15 +30,15 @@ as *customer-ready*.
 **The tiered authority system** (the core of the design, encoded in a ~370-line
 system prompt): sources are ranked, and when they conflict, customer-facing
 documentation always beats code. Code existing in a repo does not mean a
-feature is customer-ready — if code shows something the docs don't confirm,
+feature is customer-ready; if code shows something the docs don't confirm,
 the assistant must say "this exists in code but is not confirmed as a
-supported capability — verify with engineering." Every answer cites its
+supported capability; verify with engineering." Every answer cites its
 source; an uncitable answer becomes "I don't have enough information," with
-an escalation path. The insight: the failure mode wasn't bad retrieval — it
+an escalation path. The insight: the failure mode wasn't bad retrieval, it
 was a true document (code exists) producing a wrong conclusion (feature is
 supported). Better retrieval can't fix reasoning; an authority policy can.
 
-**Other key decisions:** per-fact freshness — each knowledge type gets the
+**Other key decisions:** per-fact freshness, where each knowledge type gets the
 mechanism matching how fast it goes stale (live lookup vs. 2x-daily sync vs.
 weekly sync vs. weekly AI re-summarization) rather than one blanket re-sync;
 a staleness flag if the codebase summary is more than 7 days old, so a failed

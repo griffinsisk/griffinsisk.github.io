@@ -9,8 +9,8 @@ export const config = { supportsResponseStreaming: true };
 
 const client = new Anthropic(); // reads ANTHROPIC_API_KEY from the environment
 
-const CAPACITY_MSG = "The assistant is over capacity right now — try again in a minute.";
-const GENERIC_MSG = "Something went wrong — try again, or email griffinjsisk@gmail.com.";
+const CAPACITY_MSG = "The assistant is over capacity right now. Try again in a minute.";
+const GENERIC_MSG = "Something went wrong. Try again, or email griffinjsisk@gmail.com.";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   const xff = String(req.headers["x-forwarded-for"] ?? "").split(",").map((s) => s.trim()).filter(Boolean);
   const ip = String(req.headers["x-real-ip"] ?? xff[xff.length - 1] ?? "unknown");
   if (isRateLimited(ip)) {
-    sendError(res, 429, "Too many questions at once — give it a minute and try again.");
+    sendError(res, 429, "Too many questions at once. Give it a minute and try again.");
     return;
   }
 
